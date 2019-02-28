@@ -54,7 +54,7 @@ module.exports.mail = data => {
 
 module.exports.login = async ctx => {
   if (ctx.session.isAuth) {
-    return ctx.render('pages/admin');
+    return ctx.redirect('/admin');
   }
   ctx.render('pages/login', {
     title: 'Login page',
