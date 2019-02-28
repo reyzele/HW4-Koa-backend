@@ -52,15 +52,17 @@ module.exports.mail = data => {
     });
 };
 
-module.exports.login = async (ctx, next) => {};
+module.exports.login = async (ctx, next) => {
+  ctx.redirect('/login/?msgfile=test');
+};
 
 module.exports.auth = async (ctx, next) => {};
 
 module.exports.admin = async (ctx, next) => {
   ctx.render('pages/admin', {
     title: 'Admin page',
-    msgfile: ctx.request.querystring.msgfile,
-    msgskill: ctx.request.querystring.msgskill
+    msgfile: ctx.request.query.msgfile,
+    msgskill: ctx.request.query.msgskill
   });
 };
 
@@ -70,8 +72,12 @@ module.exports.goods = async (ctx, next) => {
 
   const responseErr = validation({ name }, { picture, size });
   if (responseErr) {
-    await unlink(filePath);
-    ctx.body = responseErr;
+    console.log(filePath);
+
+    if (filePath.length) {
+      await unlink(filePath);
+    }
+    return ctx.redirect('/admin/?msgfile=Не%20указано%20название%20проекта');
   }
   let fileName = path.join(process.cwd(), 'public', 'upload', picture);
   const errUpload = await rename(filePath, fileName);
@@ -87,7 +93,7 @@ module.exports.goods = async (ctx, next) => {
       picture: path.join('upload', picture)
     })
     .write();
-  ctx.redirect(`${ctx.path}/admin/?msgfile=Картинка успешно загружена`);
+  ctx.redirect('/admin/?msgfile=Картинка успешно загружена');
 };
 
 module.exports.skills = async (ctx, next) => {};
