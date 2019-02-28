@@ -1,0 +1,60 @@
+{
+  "goods": [
+    {
+      "picture": "./img/products/Work1.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work2.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work3.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work4.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work5.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work6.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work7.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work8.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "picture": "./img/products/Work9.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    }
+  ],
+  "skills": {
+    "age": 12,
+    "concerts": 76,
+    "cities": 30,
+    "years": 20
+  },
+  "user": {
+    "login": "admin",
+    "hash": "516957678e27ca52a1f5598075020a415629db0ab92a83f415f69f5a18caeda6aec052c57d6a77a3330658c8dadff61c892f0c25a058d146bb0457665d429c03600f0b0db9876338c00293e6f3ff097d29523e730e01a988964a3fb95d273ecc90aa01fa6ea1b88b88a2ef41db53fe5a6a1d344f3c294376e96b5c44eeff080c83ac89ecd64a6e3d5cade8a990380ec7456c3b7b2dffbc0725cb43254aa4c8d79786cc4a4f749c687c1af18ee7b7e5dac157c1af07d4a0fb46be0ff14ec22ce511be7205fbaa4c3e02b67d441c6449a7d24177874eeb681c726bb8696df2ce6586309df97ab53c63e896f3280b99e5cabdc92b1f1001cc0e393a2b822a7be1c659540ffd76df99637c1c272a13f0c6434f2cb6a6f44b852b50e21a9cfcae8e9419e570e0a795b4f07fa8bc77275619719a8a4ef41d985c51d7d6c76ee5635c0e5cee7886cece1dd7b560c7df3049884c0fcb0b206009999ca3fdcd6c171b3b78420178240817fba9c7940a8d5ccb4ff12e5d74053ab7b88f65842d0b785959c66a05c4c655f41514c1a95a9e3810646b87d1780fb124d102da09f4b685668bbb3c2f044a58a97e0f21535b635a9043a68280d21dad83f24cf898cb791892a144b5f5863e44045de236e6e4c646c47a7e96a4cb9d998caa6961c4c2fbfd0c191fb657d950ee24e596f522ebdcbc4375d81f0783c1a79a93f0882256a12171fc8c",
+    "salt": "78e519b80dc7a212b12439e248219f0d"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "koa-backend",
+  "version": "0.0.1",
+  "author": "Vadim",
+  "license": "ISC",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "koa": "^2.7.0",
+    "koa-body": "^4.0.8",
+    "koa-pug": "^3.0.0-2",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.10.1",
+    "koa-static": "^5.0.0",
+    "lowdb": "^1.0.0",
+    "nodemailer": "^5.1.1",
+    "pug": "^2.0.3"
+  }
+}

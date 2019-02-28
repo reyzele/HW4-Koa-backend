@@ -1,0 +1,24 @@
+{
+  "session": {
+    "key": "koa:sess",
+    "maxAge": 86400000,
+    "overwrite": true,
+    "httpOnly": true,
+    "signed": false,
+    "rolling": false,
+    "renew": false
+  },
+  "mail": {
+    "subject": "Сообщение с сайта",
+    "smtp": {
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "isquad12@gmail.com",
+        "pass": "***"
+      }
+    }
+  },
+  "upload": "./public/upload"
+}

@@ -1,0 +1,19 @@
+{
+  "script": "server.js",
+  "watch": [
+    "server.js",
+    "routes",
+    "controllers",
+    "views",
+    "config",
+    "models"
+  ],
+  "ignore": [
+    "node_modules",
+    "source"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js css html pug json"
+}
