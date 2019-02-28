@@ -3,14 +3,14 @@ module.exports = (fields, files) => {
 
   if (!fields.name) {
     response = {
-      mes: 'Не указано название проекта',
+      mes: encodeURIComponent('Не указано название проекта'),
       status: 'Error'
     };
   }
 
   if (files.fileName === '' || files.size === 0) {
     response = {
-      mes: 'Не загружена картинка',
+      mes: encodeURIComponent('Не загружена картинка'),
       status: 'Error'
     };
   }

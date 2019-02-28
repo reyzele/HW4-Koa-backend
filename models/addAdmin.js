@@ -7,13 +7,13 @@ const rl = readline.createInterface({
 const db = require('./db.js');
 const psw = require('../libs/password');
 
-let login = '';
+let email = '';
 let hash = '';
 let salt = '';
 let password = {};
 
-rl.question('Login: ', answer => {
-  login = answer;
+rl.question('Email: ', answer => {
+  email = answer;
   rl.question('Password: ', answer => {
     password = psw.setPassword(answer);
     hash = password.hash;
@@ -23,5 +23,5 @@ rl.question('Login: ', answer => {
 });
 
 rl.on('close', () => {
-  db.set('user', { login, hash, salt }).write();
+  db.set('user', { email, hash, salt }).write();
 });

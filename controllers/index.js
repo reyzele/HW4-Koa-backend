@@ -52,33 +52,56 @@ module.exports.mail = data => {
     });
 };
 
-module.exports.login = async (ctx, next) => {};
-
-module.exports.auth = async (ctx, next) => {};
-
-module.exports.admin = async (ctx, next) => {
-  ctx.render('pages/admin', {
-    title: 'Admin page',
-    msgfile: ctx.request.querystring.msgfile,
-    msgskill: ctx.request.querystring.msgskill
+module.exports.login = async ctx => {
+  if (ctx.session.isAuth) {
+    return ctx.render('pages/admin');
+  }
+  ctx.render('pages/login', {
+    title: 'Login page',
+    msglogin: ctx.request.query.msglogin
   });
 };
 
-module.exports.goods = async (ctx, next) => {
+module.exports.auth = async ctx => {
+  const { email, password } = ctx.request.body;
+  let status = '';
+  const user = db.getState().user;
+
+  if (user.email === email && psw.validPassword(password)) {
+    ctx.session.isAuth = true;
+    ctx.redirect('/admin');
+  } else {
+    status = encodeURIComponent('Введен неверный логин или пароль');
+    ctx.redirect(`/login/?msglogin=${status}`);
+  }
+};
+
+module.exports.admin = async ctx => {
+  if (!ctx.session.isAuth) {
+    return ctx.redirect('/');
+  }
+  ctx.render('pages/admin', {
+    title: 'Admin page',
+    msgfile: ctx.request.query.msgfile,
+    msgskill: ctx.request.query.msgskill
+  });
+};
+
+module.exports.goods = async ctx => {
   const { name, price } = ctx.request.body;
   const { name: picture, size, path: filePath } = ctx.request.files.photo;
+  let status = '';
 
   const responseErr = validation({ name }, { picture, size });
   if (responseErr) {
     await unlink(filePath);
-    ctx.body = responseErr;
+    return ctx.redirect(`/admin/?msgfile=${responseErr.mes}`);
   }
   let fileName = path.join(process.cwd(), 'public', 'upload', picture);
   const errUpload = await rename(filePath, fileName);
   if (errUpload) {
-    return ctx.redirect(
-      '/admin/?msgfile=При загрузке картинки что-то пошло не так...'
-    );
+    status = encodeURIComponent('При загрузке картинки что-то пошло не так...');
+    return ctx.redirect(`/admin/?msgfile=${status}`);
   }
   db.get('goods')
     .push({
@@ -87,7 +110,25 @@ module.exports.goods = async (ctx, next) => {
       picture: path.join('upload', picture)
     })
     .write();
-  ctx.redirect(`${ctx.path}/admin/?msgfile=Картинка успешно загружена`);
+  status = encodeURIComponent('Картинка успешно загружена');
+  ctx.redirect(`/admin/?msgfile=${status}`);
 };
 
-module.exports.skills = async (ctx, next) => {};
+module.exports.skills = async ctx => {
+  const { age, concerts, cities, years } = ctx.request.body;
+  let status = '';
+
+  if (!age || !concerts || !cities || !years) {
+    status = encodeURIComponent('Все поля обязательны к заполнению');
+    return ctx.redirect(`/admin/?msgskill=${status}`);
+  }
+  
+  db.get('skills')
+    .set('age', age)
+    .set('concerts', concerts)
+    .set('cities', cities)
+    .set('years', years)
+    .write();
+  status = encodeURIComponent('Данные успешно загружены!');
+  ctx.redirect(`/admin/?msgskill=${status}`);
+};

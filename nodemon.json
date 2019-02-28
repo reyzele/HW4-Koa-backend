@@ -6,7 +6,8 @@
     "controllers",
     "views",
     "config",
-    "models"
+    "models",
+    "libs"
   ],
   "ignore": [
     "node_modules",
