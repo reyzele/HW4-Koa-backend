@@ -1,5 +1,4 @@
 const crypto = require('crypto');
-
 const db = require('../models/db');
 
 module.exports.setPassword = password => {

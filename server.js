@@ -5,13 +5,12 @@ const session = require('koa-session');
 const Pug = require('koa-pug');
 const fs = require('fs');
 require('dotenv').load();
-
 const pug = new Pug({
   viewPath: './views',
   pretty: false,
   basedir: './views',
   noCache: true,
-  app: app,
+  app: app
 });
 const config = require('./config');
 
@@ -24,7 +23,7 @@ app.use(errorHandler);
 app.on('error', (err, ctx) => {
   ctx.render('error', {
     status: ctx.response.status,
-    error: ctx.response.message,
+    error: err
   });
 });
 

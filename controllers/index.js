@@ -16,7 +16,6 @@ module.exports.index = async ctx => {
     videoLink: 'https://www.youtube.com/watch?v=nBE85Qy_SLc',
     authorized: ctx.session.isAuth
   };
-
   const goods = db.getState().goods || [];
   const skills = db.getState().skills || {};
 
@@ -38,6 +37,7 @@ module.exports.mail = data => {
     subject: config.mail.subject,
     text: text.trim().slice(0, 500) + `\n Отправлено с: <${email}>`
   };
+
   return transporter
     .sendMail(mailOptions)
     .then(() => {
@@ -56,6 +56,7 @@ module.exports.login = async ctx => {
   if (ctx.session.isAuth) {
     return ctx.redirect('/admin');
   }
+
   ctx.render('pages/login', {
     title: 'Login page',
     msglogin: ctx.request.query.msglogin
@@ -64,8 +65,8 @@ module.exports.login = async ctx => {
 
 module.exports.auth = async ctx => {
   const { email, password } = ctx.request.body;
-  let status = '';
   const user = db.getState().user;
+  let status = '';
 
   if (user.email === email && psw.validPassword(password)) {
     ctx.session.isAuth = true;
@@ -80,6 +81,7 @@ module.exports.admin = async ctx => {
   if (!ctx.session.isAuth) {
     return ctx.redirect('/');
   }
+
   ctx.render('pages/admin', {
     title: 'Admin page',
     msgfile: ctx.request.query.msgfile,
@@ -90,19 +92,22 @@ module.exports.admin = async ctx => {
 module.exports.goods = async ctx => {
   const { name, price } = ctx.request.body;
   const { name: picture, size, path: filePath } = ctx.request.files.photo;
+  const responseErr = validation({ name }, { picture, size });
   let status = '';
 
-  const responseErr = validation({ name }, { picture, size });
   if (responseErr) {
     await unlink(filePath);
     return ctx.redirect(`/admin/?msgfile=${responseErr.mes}`);
   }
+
   let fileName = path.join(process.cwd(), 'public', 'upload', picture);
   const errUpload = await rename(filePath, fileName);
+
   if (errUpload) {
     status = encodeURIComponent('При загрузке картинки что-то пошло не так...');
     return ctx.redirect(`/admin/?msgfile=${status}`);
   }
+
   db.get('goods')
     .push({
       name,

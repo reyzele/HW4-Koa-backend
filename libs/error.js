@@ -4,7 +4,7 @@ module.exports = async (ctx, next) => {
     if (ctx.status === 404) {
       let err = {
         status: ctx.response.status,
-        error: ctx.response.message,
+        error: ctx.response.message
       };
       ctx.app.emit('error', err, ctx);
     }
